@@ -1,8 +1,9 @@
 function processData(data: unknown): string {
-  return data.toUpperCase();
+  return typeof(data)==='string' ? data.toUpperCase():`Not a string`;
 }
 
 console.log(processData("hello")); // ควรได้ "HELLO"
 console.log(processData(123)); // ควรได้ "Not a string"
 
 // Error ที่เจอคือ
+// การประกาศ type ที่ flexible จนเกินไปทำให้ test case ที่เป็น type number ที่เป็น parameter input นำไปใช้กับ method .toUpperCase() ไม่ได้

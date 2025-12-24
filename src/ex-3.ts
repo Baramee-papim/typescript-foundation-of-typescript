@@ -1,4 +1,4 @@
-const ordersSample = [
+const ordersSample: Array<Order> = [
   {
     orderId: "ORD001",
     status: "pending",
@@ -94,6 +94,28 @@ const ordersSample = [
 ];
 
 //Start Coding Here
+type OrderStatus = "pending" | "shipped" | "delivered" | "cancelled";
+type Order = {
+  orderId: string;
+  status: OrderStatus;
+  productName: string;
+  price: number;
+  quantity: number;
+  discount?: number;
+};
+
+function totalByStatusWithDiscount(
+  orders: Order[],
+  targetStatus: OrderStatus
+): number {
+  return orders
+    .filter((order) => order.status === targetStatus)
+    .reduce(
+      (acc, curr) => acc + curr.price * curr.quantity - (curr.discount ?? 0),
+      0
+    );
+}
+const orders: Order[] = [...ordersSample];
 
 const totalShipped = totalByStatusWithDiscount(orders, "shipped");
 console.log("Total for shipped orders with discount:", totalShipped);
